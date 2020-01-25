@@ -20,7 +20,6 @@ exports.mostrarSemillas = function(req, res){
 };
 
 exports.seleccionarSemilla = function(req, res){
-    console.log(req.params.id);
     Semillas.findOne({ where: {id: req.params.id}})
         .then(data => res.json(data));
 };

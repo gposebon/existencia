@@ -5,8 +5,7 @@ exports.crearSilo = function(req, res) {
         Nombre_Silos: req.body.nombre,
         Capacidad_Silos: req.body.capacidad,
         Lugar_Silos: req.body.lugar,
-        // VER
-        // Kilos_Ocupados_Silos: req.body.kilosOcupados 
+        Kilos_Ocupados_Silos: req.body.kilosOcupados 
         }).then(function (data) {
         if (data) {
             res.send(data);
@@ -15,6 +14,10 @@ exports.crearSilo = function(req, res) {
         }
     });
 };
+
+exports.restarKilos = function(req, res){
+    
+}
 
 exports.mostrarSilos = function(req, res){
     Silos.findAll()

@@ -1,10 +1,14 @@
-const {Entradas} = require('../connection');
+const {Entradas, Semillas, Silos,Proveedor} = require('../connection');
 
 exports.ingresarEntrada = function(req, res){
     Entradas.create({
         Fecha_Entrada: req.body.fecha,
         Kilos_Entrada: req.body.kilos
-    }).then( (data) => {
+    },
+    {
+        include: [{model: Silos}]
+    }
+    ).then( (data) => {
         if(data){
             res.send(data)
         } else {
@@ -14,13 +18,24 @@ exports.ingresarEntrada = function(req, res){
 };
 
 exports.mostrarEntradas = function(req, res){
-    Entradas.findAll()
-        .then(data => res.json(data));
+    Entradas.findAll(
+        {include:[
+            {model:Semillas},
+            {model:Proveedor},
+            {model:Silos},
+        ]}
+        ).then(data => res.json(data));
 };
 
 exports.seleccionarEntrada = function(req, res){
-    Entradas.findOne( {where: {id: req.params.id}})
-        .then(data => res.json(data));
+    Entradas.findOne( {
+        where: {id: req.params.id
+        }, include:[
+            {model:Semillas},
+            {model:Proveedor},
+            {model:Silos},
+        ]  
+    }).then(data => res.json(data));
 };
 
 

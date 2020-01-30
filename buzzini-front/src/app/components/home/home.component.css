@@ -1,0 +1,10 @@
+.container-sm {
+    width: 100%;
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container-sm h1 {
+    text-align: center;
+}

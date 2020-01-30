@@ -29,10 +29,19 @@ const Proveedor = proveedorModel(sequelize, Sequelize);
 const Semillas = semillasModel(sequelize, Sequelize);
 const Silos = silosModel(sequelize, Sequelize);
 
-sequelize.sync({ force: false })
-  .then(() => {
-    console.log(`Database & tables created!`)
-  })
+ 
+Entradas.belongsTo(Semillas);
+Semillas.hasMany(Entradas);
+
+Entradas.belongsTo(Proveedor);
+Proveedor.hasMany(Entradas);
+
+Entradas.belongsTo(Silos);
+Silos.hasMany(Entradas);
+
+Limpieza.belongsTo(Entradas);
+Entradas.hasMany(Limpieza);
+
 
 module.exports = {
  Entradas,

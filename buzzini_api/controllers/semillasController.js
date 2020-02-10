@@ -1,7 +1,7 @@
-const {Semillas} = require('../connection');
+const {Semilla} = require('../connection');
 
 exports.crearSemilla = function(req, res) {
-    return Semillas.create({
+    return Semilla.create({
         Nombre_Semilla: req.body.nombre,
         Variedad_Semilla: req.body.variedad,
         Descripcion_Semilla: req.body.descripcion
@@ -14,18 +14,18 @@ exports.crearSemilla = function(req, res) {
     });
 };
 
-exports.mostrarSemillas = function(req, res){
-    Semillas.findAll()
+exports.mostrarSemilla = function(req, res){
+    Semilla.findAll()
         .then(data => res.json(data));
 };
 
 exports.seleccionarSemilla = function(req, res){
-    Semillas.findOne({ where: {id: req.params.id}})
+    Semilla.findOne({ where: {id: req.params.id}})
         .then(data => res.json(data));
 };
 
 exports.updateSemilla = function(req, res) {
-    Semillas.update({
+    Semilla.update({
         Nombre_Semilla: req.body.nombre,
         Variedad_Semilla: req.body.variedad,
         Descripcion_Semilla: req.body.descripcion
@@ -44,7 +44,7 @@ exports.updateSemilla = function(req, res) {
 };
 
 exports.borrarSemilla = function(req, res) {
-    Semillas.destroy({ where: {id: req.params.id}})
+    Semilla.destroy({ where: {id: req.params.id}})
         .then(() => {
             res.send('Semilla Borrada');
         });

@@ -14,7 +14,7 @@ exports.crearProveedor = function(req, res) {
     });
 };
 
-exports.mostrarProveedores = function(req, res){
+exports.mostrarProveedor = function(req, res){
     Proveedor.findAll()
         .then(data => res.json(data));
 };

@@ -23,30 +23,29 @@ var sequelize = new Sequelize('buzzini', 'root', '', {
     console.log('No se conecto')
   })
 
-const Entradas = entradasModel(sequelize, Sequelize);
+const Entrada = entradasModel(sequelize, Sequelize);
 const Limpieza = limpiezaModel(sequelize, Sequelize);
 const Proveedor = proveedorModel(sequelize, Sequelize);
-const Semillas = semillasModel(sequelize, Sequelize);
-const Silos = silosModel(sequelize, Sequelize);
+const Semilla = semillasModel(sequelize, Sequelize);
+const Silo = silosModel(sequelize, Sequelize);
 
  
-Entradas.belongsTo(Semillas);
-Semillas.hasMany(Entradas);
+Entrada.belongsTo(Semilla);
+Semilla.hasMany(Entrada);
 
-Entradas.belongsTo(Proveedor);
-Proveedor.hasMany(Entradas);
+Entrada.belongsTo(Proveedor);
+Proveedor.hasMany(Entrada);
 
-Entradas.belongsTo(Silos);
-Silos.hasMany(Entradas);
+Entrada.belongsTo(Silo);
+Silo.hasMany(Entrada);
 
-Limpieza.belongsTo(Entradas);
-Entradas.hasMany(Limpieza);
-
+Limpieza.belongsTo(Entrada);
+Entrada.hasMany(Limpieza);
 
 module.exports = {
- Entradas,
+ Entrada,
  Limpieza,
  Proveedor,
- Semillas,
- Silos
+ Semilla,
+ Silo
  }

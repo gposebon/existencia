@@ -1,11 +1,12 @@
-const {Silos} = require('../connection');
+const {Silo} = require('../connection');
 
 exports.crearSilo = function(req, res) {
-    return Silos.create({
+    return Silo.create({
         Nombre_Silos: req.body.nombre,
         Capacidad_Silos: req.body.capacidad,
         Lugar_Silos: req.body.lugar,
         Kilos_Ocupados_Silos: req.body.kilosOcupados 
+        
         }).then(function (data) {
         if (data) {
             res.send(data);
@@ -19,19 +20,19 @@ exports.restarKilos = function(req, res){
     
 }
 
-exports.mostrarSilos = function(req, res){
-    Silos.findAll()
+exports.mostrarSilo = function(req, res){
+    Silo.findAll()
         .then(data => res.json(data));
 };
 
 exports.seleccionarSilo = function(req, res){
     console.log(req.params.id);
-    Silos.findOne({ where: {id: req.params.id}})
+    Silo.findOne({ where: {id: req.params.id}})
         .then(data => res.json(data));
 };
 
 exports.updateSilo = function(req, res) {
-    Silos.update({
+    Silo.update({
         Nombre_Silos: req.body.nombre,
         Capacidad_Silos: req.body.capacidad,
         Lugar_Silos: req.body.lugar,
@@ -50,7 +51,7 @@ exports.updateSilo = function(req, res) {
 };
 
 exports.borrarSilo = function(req, res) {
-    Silos.destroy({ where: {id: req.params.id}})
+    Silo.destroy({ where: {id: req.params.id}})
         .then(() => {
             res.send('Semilla Borrada');
         });

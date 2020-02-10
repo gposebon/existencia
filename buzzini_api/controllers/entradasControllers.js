@@ -1,46 +1,48 @@
-const {Entradas, Semillas, Silos,Proveedor} = require('../connection');
+const {Entrada, Semilla, Silo,Proveedor} = require('../connection');
 
-exports.ingresarEntrada = function(req, res){
-    Entradas.create({
+exports.ingresarEntrada = async function(req, res){
+    let silo = await Silo.findByPk(req.body.dbSiloId)
+    let semilla = await Semilla.findByPk(req.body.dbSemillaId)
+    let proveedor = await Proveedor.findByPk(req.body.dbProveedorId)
+    
+    Entrada.create({
         Fecha_Entrada: req.body.fecha,
-        Kilos_Entrada: req.body.kilos
-    },
-    {
-        include: [{model: Silos}]
-    }
-    ).then( (data) => {
-        if(data){
-            res.send(data)
-        } else {
-            res.send('Error')
-        }
-    })
+        Kilos_Entrada: req.body.kilos,
+    }).then(entrada => {
+            entrada.setSilo(silo)
+            entrada.setProveedor(proveedor)
+            entrada.setSemilla(semilla)
+            res.send(entrada)
+            console.log(kilos)
+    }).catch(err =>
+        {console.log(err) 
+         res.send(err)})
 };
 
-exports.mostrarEntradas = function(req, res){
-    Entradas.findAll(
+exports.mostrarEntrada = function(req, res){
+    Entrada.findAll(
         {include:[
-            {model:Semillas},
+            {model:Semilla},
             {model:Proveedor},
-            {model:Silos},
+            {model:Silo},
         ]}
         ).then(data => res.json(data));
 };
 
 exports.seleccionarEntrada = function(req, res){
-    Entradas.findOne( {
+    Entrada.findOne( {
         where: {id: req.params.id
         }, include:[
-            {model:Semillas},
+            {model:Semilla},
             {model:Proveedor},
-            {model:Silos},
+            {model:Silo},
         ]  
     }).then(data => res.json(data));
 };
 
 
 exports.updateEntrada = function(req, res){
-    Entradas.update({
+    Entrada.update({
         Fecha_Entrada: req.body.fecha,
         Kilos_Entrada: req.body.kilos
     },
@@ -49,6 +51,6 @@ exports.updateEntrada = function(req, res){
 };
 
 exports.borrarEntrada = function(req, res) {
-    Entradas.destroy({ where: {id: req.params.id}})
+    Entrada.destroy({ where: {id: req.params.id}})
         .then(res.send('Entrada borrada'));
 }

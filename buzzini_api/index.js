@@ -2,10 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-const Semillas = require('./controllers/semillasController'); 
-const Proveedores = require('./controllers/proveedoresController');
-const Silos = require('./controllers/silosControllers');
-const Entradas = require('./controllers/entradasControllers');
+const Semilla = require('./controllers/semillasController'); 
+const Proveedor = require('./controllers/proveedoresController');
+const Silo = require('./controllers/silosControllers');
+const Entrada = require('./controllers/entradasControllers');
 
 app = express();
 
@@ -14,33 +14,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
-//Rutas Semillas
-app.get('/semillas', Semillas.mostrarSemillas);
-app.post('/semillas', Semillas.crearSemilla);
-app.get('/semillas/:id', Semillas.seleccionarSemilla);
-app.put('/semillas/:id', Semillas.updateSemilla);
-app.delete('/semillas/:id', Semillas.borrarSemilla);
+//Rutas Semilla
+app.get('/semilla', Semilla.mostrarSemilla);
+app.post('/semilla', Semilla.crearSemilla);
+app.get('/semilla/:id', Semilla.seleccionarSemilla);
+app.put('/semilla/:id', Semilla.updateSemilla);
+app.delete('/semilla/:id', Semilla.borrarSemilla);
 
-//Rutas Proveedores
-app.get('/proveedores', Proveedores.mostrarProveedores);
-app.post('/proveedores', Proveedores.crearProveedor);
-app.get('/proveedores/:id', Proveedores.seleccionarProveedor);
-app.put('/proveedores/:id', Proveedores.updateProveedor);
-app.delete('/proveedores/:id', Proveedores.borrarProveedor);
+//Rutas Proveedor
+app.get('/Proveedor', Proveedor.mostrarProveedor);
+app.post('/Proveedor', Proveedor.crearProveedor);
+app.get('/Proveedor/:id', Proveedor.seleccionarProveedor);
+app.put('/Proveedor/:id', Proveedor.updateProveedor);
+app.delete('/Proveedor/:id', Proveedor.borrarProveedor);
 
-//Rutas Silos
-app.get('/silos', Silos.mostrarSilos);
-app.post('/silos', Silos.crearSilo);
-app.get('/silos/:id', Silos.seleccionarSilo);
-app.put('/silos/:id', Silos.updateSilo);
-app.delete('/silos/:id', Silos.borrarSilo);
+//Rutas Silo
+app.get('/silo', Silo.mostrarSilo);
+app.post('/silo', Silo.crearSilo);
+app.get('/silo/:id', Silo.seleccionarSilo);
+app.put('/silo/:id', Silo.updateSilo);
+app.delete('/silo/:id', Silo.borrarSilo);
 
-//Rutas Entradas
-app.get('/entradas', Entradas.mostrarEntradas);
-app.post('/entradas', Entradas.ingresarEntrada);
-app.get('/entradas/:id', Entradas.seleccionarEntrada);
-app.put('/entradas/:id', Entradas.updateEntrada);
-app.delete('/entradas/:id', Entradas.borrarEntrada);
+//Rutas Entrada
+app.get('/entrada', Entrada.mostrarEntrada);
+app.post('/entrada', Entrada.ingresarEntrada);
+app.get('/entrada/:id', Entrada.seleccionarEntrada);
+app.put('/entrada/:id', Entrada.updateEntrada);
+app.delete('/entrada/:id', Entrada.borrarEntrada);
 
 app.listen(3000,  ()=>{
     console.log('Servidor Puerto 3000');

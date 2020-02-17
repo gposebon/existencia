@@ -1,4 +1,6 @@
 const {Entrada, Semilla, Silo,Proveedor} = require('../connection');
+let kilosRestar = require('../funciones/funcionesEntrada').kilosRestar;
+let valSilo = require('../funciones/funcionesEntrada').valEntradaSilo;
 
 exports.ingresarEntrada = async function(req, res){
     let silo = await Silo.findByPk(req.body.dbSiloId)
@@ -12,8 +14,21 @@ exports.ingresarEntrada = async function(req, res){
             entrada.setSilo(silo)
             entrada.setProveedor(proveedor)
             entrada.setSemilla(semilla)
-            res.send(entrada)
-            console.log(kilos)
+            let val = valSilo(silo.Kilos_Ocupados_Silos, entrada.Kilos_Entrada);
+            if(val){           
+                if(silo.Kilos_Ocupados_Silos == null) {
+                    let num= kilosRestar(silo.Capacidad_Silos, entrada.Kilos_Entrada);
+                    silo.Kilos_Ocupados_Silos = num;
+                    silo.save();
+                } else {
+                    let num = kilosRestar(silo.Kilos_Ocupados_Silos,entrada.Kilos_Entrada);
+                    silo.Kilos_Ocupados_Silos = num;
+                    silo.save();
+                }
+            }else {
+                console.log("No entran mas kilos");
+            }
+            res.send(entrada);
     }).catch(err =>
         {console.log(err) 
          res.send(err)})

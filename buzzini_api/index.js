@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
+
 const Semilla = require('./controllers/semillasController'); 
 const Proveedor = require('./controllers/proveedoresController');
 const Silo = require('./controllers/silosControllers');
@@ -9,8 +10,10 @@ const Entrada = require('./controllers/entradasControllers');
 
 app = express();
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Headers, Origin, X-Requested-With, Content-Type, x-access-token");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
   });
 
